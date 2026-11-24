@@ -1,7 +1,7 @@
 # prune-dont-merge
 
-Compression code for the paper *Prune, Don't Merge: Expert Compression of Mixture-of-Experts LLMs on Multilingual
-Production Tasks* (Tomas Rasymas and Povilas Kvedaras, 2026).
+Compression and evaluation code for the paper *Prune, Don't Merge: Expert Compression of Mixture-of-Experts LLMs on
+Multilingual Production Tasks* (Tomas Rasymas and Povilas Kvedaras, 2026).
 
 The paper compares two one-shot ways of removing experts from a Mixture-of-Experts (MoE) language model:
 
@@ -15,8 +15,12 @@ This repository holds what the paper used to compress the models:
 - the script that compresses a model with either method;
 - unit checks of the port against the original REAM code.
 
-The evaluation data of the paper are private product logs. They are not here, and neither are the evaluation
-scripts, which depend on them.
+The folder [`evaluation/`](evaluation/) holds the evaluation code that does not depend on the paper's products:
+generation, the statistics, the diagnostics and the checks that need no LLM. Its README says what each file does
+and what was run.
+
+The evaluation data of the paper are private product logs, and they are not here. Neither are the email-template
+rubric and the LLM judge's instructions, which are production code and configuration of the products.
 
 ## Files
 
@@ -27,6 +31,7 @@ scripts, which depend on them.
 | `compress.py` | compresses one model with REAP or REAM on a calibration set of chat conversations |
 | `unfuse_experts.py` | rewrites a compressed checkpoint's fused expert tensors into the per-expert layout of the Hub checkpoints, which vLLM loads. `compress.py` calls it |
 | `test_ream_merge.py` | unit checks of the port; they run on the CPU |
+| `evaluation/` | generation, statistics, diagnostics and judge-free checks of the paper's evaluation, with their own README and checks |
 
 ## Why a port
 
